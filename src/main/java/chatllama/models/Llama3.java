@@ -1,6 +1,7 @@
 package chatllama.models;
 
 import io.github.amithkoujalgi.ollama4j.core.OllamaAPI;
+import io.github.amithkoujalgi.ollama4j.core.OllamaStreamHandler;
 import io.github.amithkoujalgi.ollama4j.core.exceptions.OllamaBaseException;
 import io.github.amithkoujalgi.ollama4j.core.models.OllamaResult;
 import io.github.amithkoujalgi.ollama4j.core.types.OllamaModelType;
@@ -18,25 +19,39 @@ public class Llama3 {
 
     @GetMapping(value = "/llama3/{prompt}", produces = "text/plain")
     @ResponseBody
-    public String promptLlama3(@PathVariable String prompt) throws OllamaBaseException, IOException, InterruptedException {
-        String host = "http://host.docker.internal:11434/";
-        OllamaAPI ollamaAPI = new OllamaAPI(host);
-        ollamaAPI.setRequestTimeoutSeconds(10);
+    public String promptLlama3(@PathVariable String prompt) {
+        Thread thread = new Thread() {
+            @Override
+            public void run() {
+                super.run();
+                try {
+                    String host = "http://host.docker.internal:11434/";
+                    OllamaAPI ollamaAPI = new OllamaAPI(host);
+                    ollamaAPI.setRequestTimeoutSeconds(10);
 
-        String model = OllamaModelType.LLAMA3;
+                    String model = OllamaModelType.LLAMA3;
 
-        PromptBuilder promptBuilder =
-                new PromptBuilder()
-                        .addLine("You are an expert coder and understand different programming languages.")
-                        .addLine("Given a question, answer ONLY with code.")
-                        .addLine("Produce clean, formatted and indented code in markdown format.")
-                        .addLine(
-                                "DO NOT include ANY extra text apart from code. Follow this instruction very strictly!")
-                        .addLine("If there's any additional information you want to add, use comments within code.")
-                        .addLine("Answer only in the programming language that has been asked for.");
+                    PromptBuilder promptBuilder = new PromptBuilder().addLine(prompt);
 
-        OllamaResult response = ollamaAPI.generate(model, promptBuilder.build(), new OptionsBuilder().build());
-        return response.getResponse();
+                    OptionsBuilder optionsBuilder = new OptionsBuilder();
+                    OllamaStreamHandler ollamaStreamHandler = new OllamaStreamHandler() {
+                        @Override
+                        public void accept(String s) {
+                            System.out.println(s);
+                        }
+                    };
+
+                    OllamaResult response = ollamaAPI.generate(model, promptBuilder.build(), optionsBuilder.build(), ollamaStreamHandler);
+                    System.out.println(response.getResponse());
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        };
+        thread.start();
+
+
+        return "";
     }
 
 }
