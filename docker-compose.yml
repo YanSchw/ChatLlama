@@ -13,7 +13,6 @@ services:
 
   ollama:
     image: ollama/ollama
-    command: nvidia-smi
     #runtime: nvidia
     #command: "--gpus=all"
     volumes:
