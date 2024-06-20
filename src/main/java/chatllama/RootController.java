@@ -1,4 +1,4 @@
-package com.example.demo;
+package chatllama;
 
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;

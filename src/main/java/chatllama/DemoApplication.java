@@ -1,6 +1,7 @@
-package com.example.demo;
+package chatllama;
 
 import io.github.amithkoujalgi.ollama4j.core.OllamaAPI;
+import io.github.amithkoujalgi.ollama4j.core.types.OllamaModelType;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -23,10 +24,15 @@ public class DemoApplication {
             ollamaAPI.setVerbose(true);
             boolean isOllamaServerReachable = ollamaAPI.ping();
             LoggerFactory.getLogger(DemoApplication.class).info("Is Ollama server alive: " + isOllamaServerReachable);
+
+            LoggerFactory.getLogger(DemoApplication.class).info("Pulling Model: Llama3");
+            ollamaAPI.pullModel(OllamaModelType.LLAMA3);
+            LoggerFactory.getLogger(DemoApplication.class).info("Model Llama3 ready.");
         } catch (Exception e) {
             LoggerFactory.getLogger(DemoApplication.class).error("Ollama server is unavailable!");
             throw new RuntimeException();
         }
+
     }
 
 }
