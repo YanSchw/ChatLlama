@@ -14,8 +14,8 @@ services:
 
   ollama:
     image: ollama/ollama
-    runtime: nvidia
-    command: "--gpus=all"
+    #runtime: nvidia
+    #command: "--gpus=all"
     volumes:
       - ./ollama:/root/.ollama
     ports:
@@ -26,7 +26,9 @@ services:
       resources:
         reservations:
           devices:
-            - capabilities: [gpu]
+            - driver: nvidia
+              capabilities: [ "gpu" ]
+              count: all
 
 networks:
   app-network:
