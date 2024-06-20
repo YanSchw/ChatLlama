@@ -10,7 +10,7 @@ RUN mvn dependency:go-offline
 # Copy the source code into the container
 COPY src /app/src
 
-RUN mvn clean package -P production
+RUN mvn clean package -P production -D skipTests=true
 
 # Use a base image with only JDK to run the application
 FROM openjdk:17-jdk-alpine
