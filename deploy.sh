@@ -18,6 +18,7 @@ sudo apt-get install -y nvidia-docker2
 sudo systemctl restart docker
 
 # Configure Docker to use Nvidia driver
+sudo dockerd --add-runtime nvidia=/usr/bin/nvidia-container-runtime
 sudo nvidia-ctk runtime configure --runtime=docker
 sudo systemctl restart docker
 
