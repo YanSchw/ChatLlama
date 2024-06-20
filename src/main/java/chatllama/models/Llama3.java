@@ -27,7 +27,7 @@ public class Llama3 {
                 try {
                     String host = "http://host.docker.internal:11434/";
                     OllamaAPI ollamaAPI = new OllamaAPI(host);
-                    ollamaAPI.setRequestTimeoutSeconds(10);
+                    ollamaAPI.setRequestTimeoutSeconds(120);
 
                     String model = OllamaModelType.LLAMA3;
 
