@@ -14,8 +14,8 @@ services:
 
   ollama:
     image: ollama/ollama
-    #runtime: nvidia
-    #command: "--gpus=all"
+    runtime: nvidia
+    command: "--gpus=all"
     volumes:
       - ./ollama:/root/.ollama
     ports:
