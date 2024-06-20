@@ -9,6 +9,24 @@ services:
       - "8080:8080"
     networks:
       - app-network
+    depends_on:
+      - ollama
+
+  ollama:
+    image: ollama/ollama
+    #runtime: nvidia
+    #command: "--gpus=all"
+    volumes:
+      - ./ollama:/root/.ollama
+    ports:
+      - "11434:11434"
+    networks:
+      - app-network
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - capabilities: [gpu]
 
 networks:
   app-network:
