@@ -1,7 +1,12 @@
 "use strict";
 
 function prompt(value) {
-    alert(value);
+    fetch(`/llama3/${encodeURI(value)}`, {
+        method: 'GET',
+        headers: {
+            'Accept': 'text/plain'
+        }
+    });
 }
 
 component('chat-input', (node, state) => {
