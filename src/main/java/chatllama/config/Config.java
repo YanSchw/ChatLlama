@@ -1,5 +1,8 @@
 package chatllama.config;
 
+import org.slf4j.LoggerFactory;
+import java.util.Arrays;
+
 public class Config {
 
     public static String ollamaServerHostname = "http://localhost";
@@ -22,6 +25,41 @@ public class Config {
     }
     public static String getMySqlPassword() {
         return mySqlPassword;
+    }
+
+    public static void initialize(String[] args) {
+        var iterator = Arrays.stream(args).iterator();
+
+        try {
+            for (String str = iterator.next(); str != null; str = iterator.next()) {
+                if (str.equals("-OLLAMA_HOSTNAME")) {
+                    ollamaServerHostname = iterator.next();
+                }
+                if (str.equals("-OLLAMA_PORT")) {
+                    ollamaServerPort = Integer.valueOf(iterator.next());
+                }
+
+                if (str.equals("-MYSQL_HOSTNAME")) {
+                    mySqlHostname = iterator.next();
+                }
+                if (str.equals("-MYSQL_PORT")) {
+                    mySqlPort = Integer.valueOf(iterator.next());
+                }
+                if (str.equals("-MYSQL_USERNAME")) {
+                    mySqlUsername = iterator.next();
+                }
+                if (str.equals("-MYSQL_PASSWORD")) {
+                    mySqlPassword = iterator.next();
+                }
+            }
+        } catch (Exception ignored) { }
+
+        LoggerFactory.getLogger(Config.class).info("OLLAMA_HOSTNAME: " + ollamaServerHostname);
+        LoggerFactory.getLogger(Config.class).info("OLLAMA_PORT: " + ollamaServerPort);
+        LoggerFactory.getLogger(Config.class).info("MYSQL_HOSTNAME: " + mySqlHostname);
+        LoggerFactory.getLogger(Config.class).info("MYSQL_PORT: " + mySqlPort);
+        LoggerFactory.getLogger(Config.class).info("MYSQL_USERNAME: " + mySqlUsername);
+        LoggerFactory.getLogger(Config.class).info("MYSQL_PASSWORD: " + mySqlPassword);
     }
 
 }

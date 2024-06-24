@@ -13,6 +13,7 @@ import org.springframework.context.event.EventListener;
 public class ChatLlamaApplication {
 
     public static void main(String[] args) {
+        Config.initialize(args);
         SpringApplication.run(ChatLlamaApplication.class, args);
     }
 
