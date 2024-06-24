@@ -1,5 +1,6 @@
 package chatllama.models;
 
+import chatllama.config.Config;
 import io.github.amithkoujalgi.ollama4j.core.OllamaAPI;
 import io.github.amithkoujalgi.ollama4j.core.OllamaStreamHandler;
 import io.github.amithkoujalgi.ollama4j.core.exceptions.OllamaBaseException;
@@ -25,7 +26,7 @@ public class Llama3 {
             public void run() {
                 super.run();
                 try {
-                    String host = "http://host.docker.internal:11434/";
+                    String host = Config.getOllamaServerHostURL();
                     OllamaAPI ollamaAPI = new OllamaAPI(host);
                     ollamaAPI.setRequestTimeoutSeconds(120);
 

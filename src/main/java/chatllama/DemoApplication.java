@@ -1,5 +1,6 @@
 package chatllama;
 
+import chatllama.config.Config;
 import io.github.amithkoujalgi.ollama4j.core.OllamaAPI;
 import io.github.amithkoujalgi.ollama4j.core.types.OllamaModelType;
 import org.slf4j.LoggerFactory;
@@ -17,7 +18,7 @@ public class DemoApplication {
 
     @EventListener(ApplicationReadyEvent.class)
     public void initApplication() {
-        String host = "http://host.docker.internal:11434/";
+        String host = Config.getOllamaServerHostURL();
 
         try {
             OllamaAPI ollamaAPI = new OllamaAPI(host);
