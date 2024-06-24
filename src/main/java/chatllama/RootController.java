@@ -24,4 +24,9 @@ public class RootController {
         return new ClassPathResource("js/" + script);
     }
 
+    @GetMapping("/icon/{img}")
+    public Resource icon(@PathVariable String img) {
+        return new ClassPathResource("icon/" + img);
+    }
+
 }
