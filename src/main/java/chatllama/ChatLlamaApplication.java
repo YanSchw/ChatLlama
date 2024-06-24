@@ -10,10 +10,10 @@ import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
 
 @SpringBootApplication
-public class DemoApplication {
+public class ChatLlamaApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(DemoApplication.class, args);
+        SpringApplication.run(ChatLlamaApplication.class, args);
     }
 
     @EventListener(ApplicationReadyEvent.class)
@@ -24,13 +24,13 @@ public class DemoApplication {
             OllamaAPI ollamaAPI = new OllamaAPI(host);
             ollamaAPI.setVerbose(true);
             boolean isOllamaServerReachable = ollamaAPI.ping();
-            LoggerFactory.getLogger(DemoApplication.class).info("Is Ollama server alive: " + isOllamaServerReachable);
+            LoggerFactory.getLogger(ChatLlamaApplication.class).info("Is Ollama server alive: " + isOllamaServerReachable);
 
-            LoggerFactory.getLogger(DemoApplication.class).info("Pulling Model: Llama3");
+            LoggerFactory.getLogger(ChatLlamaApplication.class).info("Pulling Model: Llama3");
             ollamaAPI.pullModel(OllamaModelType.LLAMA3);
-            LoggerFactory.getLogger(DemoApplication.class).info("Model Llama3 ready.");
+            LoggerFactory.getLogger(ChatLlamaApplication.class).info("Model Llama3 ready.");
         } catch (Exception e) {
-            LoggerFactory.getLogger(DemoApplication.class).error("Ollama server is unavailable!");
+            LoggerFactory.getLogger(ChatLlamaApplication.class).error("Ollama server is unavailable!");
             throw new RuntimeException();
         }
 
