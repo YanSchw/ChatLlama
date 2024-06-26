@@ -1,3 +1,9 @@
+
+chat {
+    display: flex;
+    justify-content: center;
+}
+
 chat svg {
     position: fixed;
     top: 0;
