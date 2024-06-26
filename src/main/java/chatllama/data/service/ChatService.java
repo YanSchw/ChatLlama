@@ -1,5 +1,6 @@
 package chatllama.data.service;
 
+import chatllama.data.entity.Chat;
 import chatllama.data.repository.ChatRepository;
 import org.springframework.stereotype.Service;
 
@@ -24,4 +25,12 @@ public class ChatService {
     }
 
 
+    public Chat getOrCreateNewChat(String chatid) {
+        if (chatid.equals("new")) {
+            Chat newChat = new Chat();
+            getRepository().save(newChat);
+            return newChat;
+        }
+        return getRepository().getChatById(Long.valueOf(chatid)).get(0);
+    }
 }

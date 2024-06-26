@@ -1,7 +1,10 @@
 package chatllama.data.entity;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -13,6 +16,10 @@ public class Chat {
 
     @OneToMany
     List<ChatMessage> messages;
+
+    public Chat() {
+        messages = new ArrayList<>();
+    }
 
     public Long getId() {
         return id;
