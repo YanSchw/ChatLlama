@@ -1,6 +1,7 @@
 "use strict";
 
 component('chat', (node, state) => {
+    createNode('innerHTML', node, inner => {});
     createNode('ul', node, ul => {
         createNode('li', ul, li => {
             li.innerText = "Message 1";
