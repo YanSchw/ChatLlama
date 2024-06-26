@@ -8,6 +8,10 @@ import chatllama.data.service.ChatService;
 import io.github.amithkoujalgi.ollama4j.core.OllamaAPI;
 import io.github.amithkoujalgi.ollama4j.core.OllamaStreamHandler;
 import io.github.amithkoujalgi.ollama4j.core.models.OllamaResult;
+import io.github.amithkoujalgi.ollama4j.core.models.chat.OllamaChatMessage;
+import io.github.amithkoujalgi.ollama4j.core.models.chat.OllamaChatMessageRole;
+import io.github.amithkoujalgi.ollama4j.core.models.chat.OllamaChatRequestModel;
+import io.github.amithkoujalgi.ollama4j.core.models.chat.OllamaChatResult;
 import io.github.amithkoujalgi.ollama4j.core.types.OllamaModelType;
 import io.github.amithkoujalgi.ollama4j.core.utils.OptionsBuilder;
 import io.github.amithkoujalgi.ollama4j.core.utils.PromptBuilder;
@@ -15,6 +19,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 public class ChatAPI {
@@ -57,8 +64,17 @@ public class ChatAPI {
                         }
                     };
 
-                    OllamaResult response = ollamaAPI.generate(model, promptBuilder.build(), optionsBuilder.build(), ollamaStreamHandler);
-                    responseMessage.setMessage(response.getResponse());
+                    //OllamaResult response = ollamaAPI.generate(model, promptBuilder.build(), optionsBuilder.build(), ollamaStreamHandler);
+
+                    List<OllamaChatMessage> ollamaChatMessages = new ArrayList<>();
+                    for (ChatMessage It : chat.getMessages()) {
+                        OllamaChatMessage ollamaChatMessage = new OllamaChatMessage();
+                        ollamaChatMessage.setContent(It.getMessage());
+                        ollamaChatMessage.setRole(It.isModelMessage() ? OllamaChatMessageRole.SYSTEM : OllamaChatMessageRole.USER);
+                        ollamaChatMessages.add(ollamaChatMessage);
+                    }
+                    OllamaChatResult result = ollamaAPI.chat(new OllamaChatRequestModel(model, ollamaChatMessages), ollamaStreamHandler);
+                    responseMessage.setMessage(result.getResponse());
                     responseMessage.setPending(false);
                     ChatMessageService.getRepository().save(responseMessage);
                 } catch (Exception e) {
