@@ -24,11 +24,13 @@ public class ChatAPI {
         Chat chat = ChatService.getInstance().getOrCreateNewChat(chatid);
 
         ChatMessage yourMessage = new ChatMessage(prompt);
+        yourMessage.setModelMessage(false);
         chat.getMessages().add(yourMessage);
         ChatMessageService.getRepository().save(yourMessage);
 
         ChatMessage responseMessage = new ChatMessage();
         responseMessage.setPending(true);
+        responseMessage.setModelMessage(true);
         chat.getMessages().add(responseMessage);
         ChatMessageService.getRepository().save(responseMessage);
         ChatService.getRepository().save(chat);

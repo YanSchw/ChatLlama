@@ -16,6 +16,8 @@ public class ChatMessage {
     @Column(name = "message", length = 10_000)
     private String message;
 
+    private boolean isModelMessage = false;
+
     private boolean isPending = false;
 
     public ChatMessage() {
@@ -38,6 +40,14 @@ public class ChatMessage {
         this.message = message;
     }
 
+    public boolean isModelMessage() {
+        return isModelMessage;
+    }
+
+    public void setModelMessage(boolean modelMessage) {
+        isModelMessage = modelMessage;
+    }
+
     public void setPending(boolean pending) {
         isPending = pending;
     }
@@ -50,6 +60,7 @@ public class ChatMessage {
         JSONObject json = new JSONObject();
         json.put("id", getId());
         json.put("message", getMessage());
+        json.put("isModelMessage", isModelMessage());
         return json;
     }
 

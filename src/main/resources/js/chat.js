@@ -13,6 +13,9 @@ function fetchChatMessages(chatid) {
         for (let msg of json.messages) {
             createNode('message', container, message => {
                 message.setAttribute('msg', msg.message);
+                let float = !msg.isModelMessage ? 'right' : 'left';
+                initializeAllComponents();
+                message.querySelector('div').style.float = float;
             });
         }
         if (json.isPending) {
