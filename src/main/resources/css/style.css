@@ -1,6 +1,7 @@
 @import url('theme.css');
 @import url('chat.css');
 @import url('chatinput.css');
+@import url('message.css');
 
 * {
     margin: 0;

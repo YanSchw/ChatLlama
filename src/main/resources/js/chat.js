@@ -2,12 +2,14 @@
 
 component('chat', (node, state) => {
     createNode('innerHTML', node, inner => {});
-    createNode('ul', node, ul => {
-        createNode('li', ul, li => {
-            li.innerText = "Message 1";
+    createNode('div', node, div => {
+        div.classList.add('message-container');
+        createNode('message', div, message => {
+            message.setAttribute('msg', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic incidunt nihil quam');
+            
         });
-        createNode('li', ul, li => {
-            li.innerText = "Message 2";
+        createNode('message', div, message => {
+            message.setAttribute('msg', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic incidunt nihil quam');
         });
     });
     createNode('chat-input', node, input => {
