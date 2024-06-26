@@ -18,6 +18,13 @@ function fetchChatMessages(chatid) {
                 message.querySelector('div').style.float = float;
             });
         }
+        // Padding
+        createNode('br', container, br => {});
+        createNode('br', container, br => {});
+        createNode('br', container, br => {});
+        createNode('br', container, br => {});
+        createNode('br', container, br => {});
+        
         if (json.isPending) {
             setTimeout(() => fetchChatMessages(chatid), 100);
         }

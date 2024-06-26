@@ -16,7 +16,7 @@ chat-input > input {
     font-family: inherit;
     border-radius: 6px;
     -webkit-appearance: none;
-    background-color: rgba(0, 0, 0, 0);
+    background-color: white;
     &::placeholder {
         color: gray;
     }
@@ -26,10 +26,11 @@ chat-input > input {
 }
 
 chat-input {
-    position: absolute;
+    position: fixed;
     bottom: 12px;
     display: flex;
     width: 100%;
+    max-width: 960px;
     & > span,
     chat-input > input {
         white-space: nowrap;
