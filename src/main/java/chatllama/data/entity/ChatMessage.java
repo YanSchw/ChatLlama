@@ -1,9 +1,6 @@
 package chatllama.data.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -18,9 +15,13 @@ public class ChatMessage {
 
     private String message;
 
+    @Transient
+    private transient boolean isPending = false;
+
     public ChatMessage() {
         message = "";
     }
+
     public ChatMessage(String message) {
         this.message = message;
     }
@@ -37,6 +38,14 @@ public class ChatMessage {
         this.message = message;
     }
 
+    public void setPending(boolean pending) {
+        isPending = pending;
+    }
+
+    public boolean isPending() {
+        return this.isPending;
+    }
+
     @Override
     public String toString() {
         JSONObject json = new JSONObject();
@@ -44,4 +53,5 @@ public class ChatMessage {
         json.put("message", getMessage());
         return json.toString();
     }
+
 }

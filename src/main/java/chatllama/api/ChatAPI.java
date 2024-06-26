@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class ChatAPI {
 
     @GetMapping(value = "/api/prompt/{chatid}/{prompt}", produces = "application/json")
-    @ResponseBody
     public String prompt(@PathVariable String chatid, @PathVariable String prompt) {
         Chat chat = ChatService.getInstance().getOrCreateNewChat(chatid);
 
@@ -29,6 +28,7 @@ public class ChatAPI {
         ChatMessageService.getRepository().save(yourMessage);
 
         ChatMessage responseMessage = new ChatMessage();
+        responseMessage.setPending(true);
         chat.getMessages().add(responseMessage);
         ChatMessageService.getRepository().save(responseMessage);
         ChatService.getRepository().save(chat);
@@ -56,7 +56,9 @@ public class ChatAPI {
                     };
 
                     OllamaResult response = ollamaAPI.generate(model, promptBuilder.build(), optionsBuilder.build(), ollamaStreamHandler);
-                    System.out.println(response.getResponse());
+                    responseMessage.setMessage(response.getResponse());
+                    responseMessage.setPending(false);
+                    ChatMessageService.getRepository().save(responseMessage);
                 } catch (Exception e) {
                     throw new RuntimeException(e);
                 }

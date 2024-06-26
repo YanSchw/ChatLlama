@@ -1,10 +1,10 @@
 "use strict";
 
 function prompt(value) {
-    fetch(`/llama3/${encodeURI(value)}`, {
+    fetch(`/api/prompt/0/${encodeURI(value)}`, {
         method: 'GET',
         headers: {
-            'Accept': 'text/plain'
+            'Accept': 'application/json'
         }
     });
 }

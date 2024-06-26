@@ -35,10 +35,20 @@ public class Chat {
         this.messages = messages;
     }
 
+    public boolean isPending() {
+        for (ChatMessage message : messages) {
+            if (message.isPending()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     @Override
     public String toString() {
         JSONObject json = new JSONObject();
         json.put("chatid", getId());
+        json.put("isPending", isPending());
         List<String> messagesJSON = new ArrayList<>();
         for (ChatMessage It : getMessages()) {
             messagesJSON.add(It.toString());
