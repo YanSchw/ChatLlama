@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class ChatAPI {
 
-    @GetMapping(value = "/api/prompt/{chatid}/{prompt}", produces = "text/plain")
+    @GetMapping(value = "/api/prompt/{chatid}/{prompt}", produces = "application/json")
     @ResponseBody
     public String prompt(@PathVariable String chatid, @PathVariable String prompt) {
         Chat chat = ChatService.getInstance().getOrCreateNewChat(chatid);
@@ -65,7 +65,14 @@ public class ChatAPI {
         thread.start();
 
 
-        return "";
+        return chat.toString();
+    }
+
+    @GetMapping(value = "/api/fetchChat/{chatid}", produces = "application/json")
+    public String fetchChat(@PathVariable String chatid) {
+        Chat chat = ChatService.getInstance().getOrCreateNewChat(chatid);
+
+        return chat.toString();
     }
 
 }

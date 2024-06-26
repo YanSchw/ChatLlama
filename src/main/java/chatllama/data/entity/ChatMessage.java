@@ -4,6 +4,10 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class ChatMessage {
@@ -31,5 +35,13 @@ public class ChatMessage {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    @Override
+    public String toString() {
+        JSONObject json = new JSONObject();
+        json.put("id", getId());
+        json.put("message", getMessage());
+        return json.toString();
     }
 }
