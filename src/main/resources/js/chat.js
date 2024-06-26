@@ -1,5 +1,26 @@
 "use strict";
 
+function fetchChatMessages(chatid) {
+    fetch(`/api/fetchChat/${chatid}`, {
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json'
+        }
+    }).then(response => response.json())
+      .then(json => {
+        let container = select('div.message-container');
+        container.innerHTML = '';
+        for (let msg of json.messages) {
+            createNode('message', container, message => {
+                message.setAttribute('msg', msg.message);
+            });
+        }
+        if (json.isPending) {
+            setTimeout(() => fetchChatMessages(chatid), 100);
+        }
+    });
+}
+
 component('chat', (node, state) => {
     createNode('innerHTML', node, inner => {});
     createNode('div', node, div => {
@@ -16,3 +37,5 @@ component('chat', (node, state) => {
         
     });
 });
+
+fetchChatMessages(1);

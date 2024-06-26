@@ -49,9 +49,9 @@ public class Chat {
         JSONObject json = new JSONObject();
         json.put("chatid", getId());
         json.put("isPending", isPending());
-        List<String> messagesJSON = new ArrayList<>();
+        List<JSONObject> messagesJSON = new ArrayList<>();
         for (ChatMessage It : getMessages()) {
-            messagesJSON.add(It.toString());
+            messagesJSON.add(It.toJSON());
         }
         json.put("messages", messagesJSON);
         return json.toString();

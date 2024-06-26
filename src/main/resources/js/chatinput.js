@@ -1,7 +1,7 @@
 "use strict";
 
-function prompt(value) {
-    fetch(`/api/prompt/0/${encodeURI(value)}`, {
+function prompt(chatid, value) {
+    fetch(`/api/prompt/${chatid}/${encodeURI(value)}`, {
         method: 'GET',
         headers: {
             'Accept': 'application/json'
@@ -18,7 +18,8 @@ component('chat-input', (node, state) => {
         input.setAttribute('placeholder', 'Ask ChatLlama anything...');
         input.onkeydown = function(e) {
             if(e.keyCode == 13){
-                prompt(input.value);
+                prompt(1, input.value);
+                setTimeout(() => fetchChatMessages(1), 100);
                 input.value = '';
             }
          };

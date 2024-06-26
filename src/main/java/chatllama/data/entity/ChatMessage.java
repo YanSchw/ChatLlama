@@ -13,10 +13,10 @@ public class ChatMessage {
     @GeneratedValue(strategy = GenerationType.AUTO)
     Long id;
 
+    @Column(name = "message", length = 10_000)
     private String message;
 
-    @Transient
-    private transient boolean isPending = false;
+    private boolean isPending = false;
 
     public ChatMessage() {
         message = "";
@@ -46,12 +46,11 @@ public class ChatMessage {
         return this.isPending;
     }
 
-    @Override
-    public String toString() {
+    public JSONObject toJSON() {
         JSONObject json = new JSONObject();
         json.put("id", getId());
         json.put("message", getMessage());
-        return json.toString();
+        return json;
     }
 
 }
