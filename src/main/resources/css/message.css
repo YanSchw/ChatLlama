@@ -9,8 +9,8 @@ div.message-container {
 
 message {
     position: relative;
-    margin: 6px;
-    padding: 4px;
+    margin: 8px;
+    padding: 6px;
 }
 
 message div {
@@ -19,7 +19,7 @@ message div {
     /*border: 1px var(--text) solid;*/
     padding: 8px;
     border-radius: 16px;
-    width: 60%;
+    width: 80%;
     left: 0px;
     right: 0px;
 }
