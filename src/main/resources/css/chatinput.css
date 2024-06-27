@@ -30,7 +30,7 @@ chat-input {
     position: fixed;
     bottom: 12px;
     display: flex;
-    width: 100%;
+    width: 90%;
     max-width: 960px;
     & > span,
     chat-input > input {
