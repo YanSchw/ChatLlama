@@ -1,10 +1,24 @@
 "use strict";
 
+let currentChatID = 'new';
+
 function hasScrolledToBottom() {
     return (window.innerHeight + window.scrollY) >= document.body.scrollHeight - 64;
 }
 
+function createNewEmptyChat() {
+    let container = select('div.message-container');
+    container.innerHTML = '';
+}
+
 function fetchChatMessages(chatid) {
+    currentChatID = chatid;
+
+    if (chatid == 'new') {
+        createNewEmptyChat();
+        return;
+    }
+
     fetch(`/api/fetchChat/${chatid}`, {
         method: 'GET',
         headers: {
@@ -51,5 +65,5 @@ component('chat', (node, state) => {
     });
 });
 
-fetchChatMessages(1);
+fetchChatMessages(currentChatID);
 setTimeout(() => window.scrollTo(0, document.body.scrollHeight), 300);

@@ -6,7 +6,11 @@ function prompt(chatid, value) {
         headers: {
             'Accept': 'application/json'
         }
-    });
+    }).then(response => response.json())
+      .then(json => {
+        fetchChatMessages(json.chatid);
+        setTimeout(() => window.scrollTo(0, document.body.scrollHeight), 300);
+  });
 }
 
 component('chat-input', (node, state) => {
@@ -18,9 +22,7 @@ component('chat-input', (node, state) => {
         input.setAttribute('placeholder', 'Ask ChatLlama anything...');
         input.onkeydown = function(e) {
             if(e.keyCode == 13){
-                prompt(1, input.value);
-                setTimeout(() => fetchChatMessages(1), 200);
-                setTimeout(() => window.scrollTo(0, document.body.scrollHeight), 300);
+                prompt(currentChatID, input.value);
                 input.value = '';
             }
          };
