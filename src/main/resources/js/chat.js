@@ -2,6 +2,16 @@
 
 let currentChatID = 'new';
 
+// ?chatid=1
+{
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    if (urlParams.has('chatid')) {
+        currentChatID = urlParams.get('chatid');
+        console.log(`currentChatID was set to ${currentChatID} by urlParam`);
+    }
+}
+
 function hasScrolledToBottom() {
     return (window.innerHeight + window.scrollY) >= document.body.scrollHeight - 64;
 }
