@@ -4,6 +4,7 @@ chat-input {
     /*border: 1px var(--text) solid;*/
     border-radius: 16px;
     margin: 12px;
+    background-color: lightgray;
 }
 
 chat-input > input {
