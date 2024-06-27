@@ -19,7 +19,8 @@ component('chat-input', (node, state) => {
         input.onkeydown = function(e) {
             if(e.keyCode == 13){
                 prompt(1, input.value);
-                setTimeout(() => fetchChatMessages(1), 100);
+                setTimeout(() => fetchChatMessages(1), 200);
+                setTimeout(() => window.scrollTo(0, document.body.scrollHeight), 300);
                 input.value = '';
             }
          };

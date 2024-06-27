@@ -1,5 +1,9 @@
 "use strict";
 
+function hasScrolledToBottom() {
+    return (window.innerHeight + window.scrollY) >= document.body.scrollHeight - 64;
+}
+
 function fetchChatMessages(chatid) {
     fetch(`/api/fetchChat/${chatid}`, {
         method: 'GET',
@@ -10,6 +14,8 @@ function fetchChatMessages(chatid) {
       .then(json => {
         let container = select('div.message-container');
         container.innerHTML = '';
+        createNode('br', container, br => {});
+        createNode('br', container, br => {});
         for (let msg of json.messages) {
             createNode('message', container, message => {
                 message.setAttribute('msg', msg.message);
@@ -24,6 +30,10 @@ function fetchChatMessages(chatid) {
         createNode('br', container, br => {});
         createNode('br', container, br => {});
         createNode('br', container, br => {});
+
+        if (hasScrolledToBottom()) {
+            window.scrollTo(0, document.body.scrollHeight);
+        }
 
         if (json.isPending) {
             setTimeout(() => fetchChatMessages(chatid), 100);
@@ -42,3 +52,4 @@ component('chat', (node, state) => {
 });
 
 fetchChatMessages(1);
+setTimeout(() => window.scrollTo(0, document.body.scrollHeight), 300);
