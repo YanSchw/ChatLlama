@@ -5,6 +5,12 @@ import java.util.Arrays;
 
 public class Config {
 
+    public static Integer chatLlamaPort = 8080;
+
+    public static String getChatLlamaPort() {
+        return String.valueOf(chatLlamaPort);
+    }
+
     public static String ollamaServerHostname = "http://localhost";
     public static Integer ollamaServerPort = 11434;
 
@@ -32,6 +38,10 @@ public class Config {
 
         try {
             for (String str = iterator.next(); str != null; str = iterator.next()) {
+                if (str.equals("-CHATLLAMA_PORT")) {
+                    chatLlamaPort = Integer.valueOf(iterator.next());
+                }
+
                 if (str.equals("-OLLAMA_HOSTNAME")) {
                     ollamaServerHostname = iterator.next();
                 }
@@ -54,6 +64,7 @@ public class Config {
             }
         } catch (Exception ignored) { }
 
+        LoggerFactory.getLogger(Config.class).info("CHATLLAMA_PORT: " + chatLlamaPort);
         LoggerFactory.getLogger(Config.class).info("OLLAMA_HOSTNAME: " + ollamaServerHostname);
         LoggerFactory.getLogger(Config.class).info("OLLAMA_PORT: " + ollamaServerPort);
         LoggerFactory.getLogger(Config.class).info("MYSQL_HOSTNAME: " + mySqlHostname);

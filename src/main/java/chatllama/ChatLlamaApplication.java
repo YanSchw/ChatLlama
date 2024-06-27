@@ -14,6 +14,7 @@ public class ChatLlamaApplication {
 
     public static void main(String[] args) {
         Config.initialize(args);
+        System.setProperty("server.port", Config.getChatLlamaPort());
         SpringApplication.run(ChatLlamaApplication.class, args);
     }
 
