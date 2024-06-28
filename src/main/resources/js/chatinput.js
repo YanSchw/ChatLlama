@@ -1,10 +1,11 @@
 "use strict";
 
 function prompt(chatid, value) {
-    fetch(`/api/prompt/${chatid}/${encodeURI(value)}`, {
+    fetch(`/api/prompt/${chatid}`, {
         method: 'GET',
         headers: {
-            'Accept': 'application/json'
+            'Accept': 'application/json',
+            'prompt': `${value}`
         }
     }).then(response => response.json())
       .then(json => {

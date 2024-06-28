@@ -15,10 +15,7 @@ import io.github.amithkoujalgi.ollama4j.core.models.chat.OllamaChatResult;
 import io.github.amithkoujalgi.ollama4j.core.types.OllamaModelType;
 import io.github.amithkoujalgi.ollama4j.core.utils.OptionsBuilder;
 import io.github.amithkoujalgi.ollama4j.core.utils.PromptBuilder;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,8 +23,8 @@ import java.util.List;
 @RestController
 public class ChatAPI {
 
-    @GetMapping(value = "/api/prompt/{chatid}/{prompt}", produces = "application/json")
-    public String prompt(@PathVariable String chatid, @PathVariable String prompt) {
+    @GetMapping(value = "/api/prompt/{chatid}", produces = "application/json")
+    public String prompt(@PathVariable String chatid, @RequestHeader("prompt") String prompt) {
         Chat chat = ChatService.getInstance().getOrCreateNewChat(chatid);
 
         ChatMessage yourMessage = new ChatMessage(prompt);
