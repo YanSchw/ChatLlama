@@ -38,8 +38,6 @@ function fetchChatMessages(chatid) {
       .then(json => {
         let container = select('div.message-container');
         container.innerHTML = '';
-        createNode('br', container, br => {});
-        createNode('br', container, br => {});
         for (let msg of json.messages) {
             createNode('message', container, message => {
                 message.setAttribute('msg', msg.message);

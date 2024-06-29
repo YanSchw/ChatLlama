@@ -1,11 +1,12 @@
 
 chat {
     position: relative;
+    top: 6vh;
     display: flex;
     justify-content: center;
     width: 100%;
     max-width: 960px;
-    height: 100vh;
+    height: 94vh;
 }
 
 chat svg {
