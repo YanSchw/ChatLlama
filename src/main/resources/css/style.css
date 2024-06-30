@@ -3,6 +3,7 @@
 @import url('chat.css');
 @import url('chatinput.css');
 @import url('message.css');
+@import url('side-bar.css');
 
 * {
     margin: 0;
