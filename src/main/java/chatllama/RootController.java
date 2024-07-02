@@ -29,4 +29,9 @@ public class RootController {
         return new ClassPathResource("icon/" + img);
     }
 
+    @GetMapping("/img/{imgage}")
+    public Resource img(@PathVariable String imgage) {
+        return new ClassPathResource("img/" + imgage);
+    }
+
 }

@@ -2,10 +2,10 @@
 
 
 component('header', (node, state) => {
-    createNode('span', node, span => {
-        span.addEventListener("click", () => {
+    createNode('img', node, img => {
+        img.addEventListener("click", () => {
             select("side-bar").classList.toggle("active");
         });
-        span.innerHTML = '&#128218;';
+        img.setAttribute('src', 'img/burger.png');
     });
 });
