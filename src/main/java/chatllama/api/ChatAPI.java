@@ -81,8 +81,45 @@ public class ChatAPI {
         };
         thread.start();
 
+        generateTitle(chat);
 
         return chat.toString();
+    }
+
+    public void generateTitle(Chat chat) {
+        Thread thread = new Thread() {
+            @Override
+            public void run() {
+                super.run();
+                try {
+                    String host = Config.getOllamaServerHostURL();
+                    OllamaAPI ollamaAPI = new OllamaAPI(host);
+                    ollamaAPI.setRequestTimeoutSeconds(120);
+
+                    String model = OllamaModelType.LLAMA3;
+
+                    List<OllamaChatMessage> ollamaChatMessages = new ArrayList<>();
+                    for (ChatMessage It : chat.getMessages()) {
+                        OllamaChatMessage ollamaChatMessage = new OllamaChatMessage();
+                        ollamaChatMessage.setContent(It.getMessage());
+                        ollamaChatMessage.setRole(It.isModelMessage() ? OllamaChatMessageRole.SYSTEM : OllamaChatMessageRole.USER);
+                        ollamaChatMessages.add(ollamaChatMessage);
+                    }
+
+                    OllamaChatMessage ollamaChatMessage = new OllamaChatMessage();
+                    ollamaChatMessage.setContent("Sumarize this Chat within 5 words");
+                    ollamaChatMessage.setRole(OllamaChatMessageRole.USER);
+                    ollamaChatMessages.add(ollamaChatMessage);
+
+                    OllamaChatResult result = ollamaAPI.chat(new OllamaChatRequestModel(model, ollamaChatMessages));
+                    chat.setTitle(result.getResponse());
+                    ChatService.getRepository().save(chat);
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        };
+        thread.start();
     }
 
     @GetMapping(value = "/api/fetchChat/{chatid}", produces = "application/json")
