@@ -15,6 +15,7 @@ import io.github.amithkoujalgi.ollama4j.core.models.chat.OllamaChatResult;
 import io.github.amithkoujalgi.ollama4j.core.types.OllamaModelType;
 import io.github.amithkoujalgi.ollama4j.core.utils.OptionsBuilder;
 import io.github.amithkoujalgi.ollama4j.core.utils.PromptBuilder;
+import org.json.JSONObject;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -127,6 +128,21 @@ public class ChatAPI {
         Chat chat = ChatService.getInstance().getOrCreateNewChat(chatid);
 
         return chat.toString();
+    }
+
+    @GetMapping(value = "/api/allChats", produces = "application/json")
+    public String allChats() {
+        List<Chat> chats = ChatService.getRepository().getAllChats();
+        JSONObject json = new JSONObject();
+        List<JSONObject> chatsJSON = new ArrayList<>();
+        for (Chat chat : chats) {
+            JSONObject jsonChat = new JSONObject();
+            jsonChat.put("chatid", chat.getId());
+            jsonChat.put("title", chat.getTitle());
+            chatsJSON.add(jsonChat);
+        }
+        json.put("chats", chatsJSON);
+        return json.toString();
     }
 
 }
