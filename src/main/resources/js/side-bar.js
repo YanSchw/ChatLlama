@@ -15,6 +15,7 @@ function fetchAllChats() {
             createNode('nav-chat', container, nav => {
                 nav.innerHTML = chat.title;
                 nav.addEventListener("click", () => {
+                    select("side-bar").classList.toggle("active");
                     fetchChatMessages(chat.chatid);
                     window.scrollTo(0, 0);
                 });
