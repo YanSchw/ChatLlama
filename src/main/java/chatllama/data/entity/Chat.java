@@ -19,8 +19,11 @@ public class Chat {
     @OneToMany
     List<ChatMessage> messages;
 
+    String title;
+
     public Chat() {
         messages = new ArrayList<>();
+        title = "New Chat";
     }
 
     public Long getId() {
@@ -42,6 +45,14 @@ public class Chat {
             }
         }
         return false;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     @Override
