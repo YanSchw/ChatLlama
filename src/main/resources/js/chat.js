@@ -60,6 +60,8 @@ function fetchChatMessages(chatid) {
         if (json.isPending) {
             setTimeout(() => fetchChatMessages(chatid), 100);
         }
+        
+        fetchAllChats();
     });
 }
 
