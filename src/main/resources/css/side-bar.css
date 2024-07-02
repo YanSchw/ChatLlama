@@ -12,11 +12,44 @@ side-bar {
     z-index: 2000;
 }
 
+side-bar div.chats-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 side-bar.active {
     width: 550px;
+
+    & > div.chats-container {
+        opacity: 1;
+    }
 }
 side-bar:not(.active) {
     width: 0px;
+
+    & > div.chats-container {
+        opacity: 0;
+    }
+}
+
+nav-chat:hover {
+    user-select: none;
+    cursor: pointer;
+    box-shadow: 0px 0px 30px rgba(12, 12, 12, 0.2);
+    background-color: white;
+
+}
+
+nav-chat:not(hover) {
+    user-select: none;
+    color: var(--text);
+    background-color: lightgray;
+    border-radius: 12px;
+    padding: 8px;
+    width: 90%;
+    margin: 4px;
 }
 
 @media only screen and (max-width: 600px) {
