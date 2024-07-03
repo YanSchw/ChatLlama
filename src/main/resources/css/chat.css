@@ -17,3 +17,17 @@ chat svg {
     height: 100vh;
     z-index: -1000;
 }
+
+chat div.new-chat-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+chat h1 {
+    color: var(--text);
+    text-shadow: 3px 3px 30px var(--primary);
+    font-weight: 700;
+    font-size: xx-large;
+}

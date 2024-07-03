@@ -45,6 +45,7 @@ nav-chat:hover {
 nav-chat:not(hover) {
     user-select: none;
     color: var(--text);
+    font-weight: 600;
     background-color: lightgray;
     border-radius: 12px;
     padding: 8px;

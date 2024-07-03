@@ -19,6 +19,12 @@ function hasScrolledToBottom() {
 function createNewEmptyChat() {
     let container = select('div.message-container');
     container.innerHTML = '';
+    createNode('div', container, div => {
+        div.classList.add('new-chat-container');
+        createNode('h1', div, h => {
+            h.innerText = 'How can I help you?';
+        });
+    });
 }
 
 function fetchChatMessages(chatid) {
@@ -60,7 +66,7 @@ function fetchChatMessages(chatid) {
         if (json.isPending) {
             setTimeout(() => fetchChatMessages(chatid), 100);
         }
-        
+
         fetchAllChats();
     });
 }
@@ -75,5 +81,5 @@ component('chat', (node, state) => {
     });
 });
 
-fetchChatMessages(currentChatID);
+setTimeout(() => fetchChatMessages(currentChatID), 10);
 setTimeout(() => window.scrollTo(0, document.body.scrollHeight), 300);
