@@ -30,6 +30,12 @@ services:
       - '3306'
     volumes:
       - ./mysql:/var/lib/mysql
+      - ./my.cnf:/etc/mysql/my.cnf
+    command: >
+      /bin/bash -c "
+      chmod 644 /etc/mysql/my.cnf &&
+      docker-entrypoint.sh mysqld
+      "
 volumes:
   mysql:
 
