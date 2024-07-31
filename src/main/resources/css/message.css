@@ -23,3 +23,31 @@ message div {
     left: 0px;
     right: 0px;
 }
+
+/* Style for the <pre> element to format the block of code */
+pre {
+    background: #2d2d2d;
+    color: #cccccc;
+    padding: 1em;
+    overflow-x: auto;
+    border-radius: 5px;
+    margin: 1em 0;
+    white-space: pre-wrap; /* Ensure line breaks are respected */
+}
+
+/* Style for the <code> element to format the inline code */
+code {
+    background: #272822;
+    color: #f8f8f2;
+    padding: 0.2em 0.4em;
+    border-radius: 3px;
+    font-family: 'Courier New', Courier, monospace;
+    display: block;
+    white-space: pre-wrap; /* Ensure line breaks are respected */
+}
+
+/* Additional styles for syntax highlighting */
+.comment { color: #75715e; } /* Comments */
+.string { color: #e6db74; } /* Strings */
+.keyword { color: #f92672; } /* Keywords */
+.number { color: #ae81ff; } /* Numbers */
