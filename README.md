@@ -3,6 +3,8 @@
 # ChatLlama 🦙 - AI chat bot inspired by ChatGPT running Llama 3 locally
 
 ChatLlama is an AI chat bot inspired by ChatGPT running Llama 3 locally on an Ollama Server via Docker
+> [!WARNING]  
+> still under development
 
 ## How It Works
 
