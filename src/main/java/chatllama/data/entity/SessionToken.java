@@ -3,6 +3,7 @@ package chatllama.data.entity;
 import jakarta.persistence.*;
 
 import java.security.SecureRandom;
+import java.time.LocalDateTime;
 import java.util.Base64;
 
 @Entity
@@ -14,6 +15,8 @@ public class SessionToken {
 
     String token;
 
+    LocalDateTime expirationTimestamp = LocalDateTime.now().plusHours(24);
+
     public Long getId() {
         return id;
     }
@@ -24,6 +27,14 @@ public class SessionToken {
 
     public void setToken(String token) {
         this.token = token;
+    }
+
+    public LocalDateTime getExpirationTimestamp() {
+        return expirationTimestamp;
+    }
+
+    public void setExpirationTimestamp(LocalDateTime expirationTimestamp) {
+        this.expirationTimestamp = expirationTimestamp;
     }
 
     private static final int TOKEN_LENGTH = 32; // Length in bytes
