@@ -108,7 +108,7 @@ public class ChatAPI {
                     }
 
                     OllamaChatMessage ollamaChatMessage = new OllamaChatMessage();
-                    ollamaChatMessage.setContent("Sumarize this Chat within 5 words");
+                    ollamaChatMessage.setContent("Sumarize this Chat within 5 or 6 words");
                     ollamaChatMessage.setRole(OllamaChatMessageRole.USER);
                     ollamaChatMessages.add(ollamaChatMessage);
 
