@@ -33,7 +33,7 @@ mvn clean package -DskipTests=true
 #### 4. Run the application and provide secrets as Program Arguments
 These are the default secrets, you may override these as you like:
 ```
-java -jar target/chatllama-0.0.1-SNAPSHOT.jar 
+java -jar target/chatllama.jar 
 -CHATLLAMA_PORT 8080
 -OLLAMA_HOSTNAME "http://localhost"
 -OLLAMA_PORT 11434
