@@ -37,6 +37,10 @@ public class SessionToken {
         this.expirationTimestamp = expirationTimestamp;
     }
 
+    public boolean isValid() {
+        return expirationTimestamp.isAfter(LocalDateTime.now());
+    }
+
     private static final int TOKEN_LENGTH = 32; // Length in bytes
 
     public static String generateTokenString() {
