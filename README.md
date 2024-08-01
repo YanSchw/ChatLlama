@@ -43,7 +43,7 @@ java -jar target/chatllama-0.0.1-SNAPSHOT.jar
 -MYSQL_PASSWORD "1234"
 ```
 
-## Running Locally (*with* Docker)
+## Running Locally (*with* Docker 🐋)
 
 #### 1. Clone Repository
 ```
