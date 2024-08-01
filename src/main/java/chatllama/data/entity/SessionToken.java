@@ -1,5 +1,6 @@
 package chatllama.data.entity;
 
+import chatllama.data.service.UserService;
 import jakarta.persistence.*;
 
 import java.security.SecureRandom;
@@ -16,6 +17,8 @@ public class SessionToken {
     String token;
 
     LocalDateTime expirationTimestamp = LocalDateTime.now().plusHours(24);
+
+    Long userId = null;
 
     public Long getId() {
         return id;
@@ -35,6 +38,22 @@ public class SessionToken {
 
     public void setExpirationTimestamp(LocalDateTime expirationTimestamp) {
         this.expirationTimestamp = expirationTimestamp;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+
+    public User getUser() {
+        return UserService.getInstance().getUserById(getUserId());
+    }
+
+    public void setUser(User user) {
+        this.userId = user.getId();
     }
 
     public boolean isValid() {
