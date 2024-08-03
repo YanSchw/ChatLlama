@@ -16,8 +16,9 @@ function getCookieByName(name) {
 }
 
 var sessionToken = getCookieByName('ChatLlama-Session-Token');
+console.log(`Session-Token is: ${sessionToken}`);
 
-fetch(`/auth/isvalid/`, {
+fetch(`/auth/session/isvalid`, {
     method: 'GET',
     headers: {
         'Accept': 'application/json',
@@ -31,5 +32,6 @@ fetch(`/auth/isvalid/`, {
         select('chat').remove();
         select('side-bar').remove();
         select('header').remove();
+        createNode('login', select('#root-container'), login => {});
     }
 });
