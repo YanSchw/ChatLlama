@@ -38,7 +38,8 @@ function fetchChatMessages(chatid) {
     fetch(`/api/fetchChat/${chatid}`, {
         method: 'GET',
         headers: {
-            'Accept': 'application/json'
+            'Accept': 'application/json',
+            'Session-Token': `${sessionToken}`
         }
     }).then(response => response.json())
       .then(json => {

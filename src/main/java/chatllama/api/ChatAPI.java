@@ -25,7 +25,7 @@ import java.util.List;
 public class ChatAPI {
 
     @GetMapping(value = "/api/prompt/{chatid}", produces = "application/json")
-    public String prompt(@PathVariable String chatid, @RequestHeader("prompt") String prompt) {
+    public String prompt(@PathVariable String chatid, @RequestHeader("prompt") String prompt, @RequestHeader("Session-Token") String token) {
         Chat chat = ChatService.getInstance().getOrCreateNewChat(chatid);
 
         ChatMessage yourMessage = new ChatMessage(prompt);
@@ -124,14 +124,14 @@ public class ChatAPI {
     }
 
     @GetMapping(value = "/api/fetchChat/{chatid}", produces = "application/json")
-    public String fetchChat(@PathVariable String chatid) {
+    public String fetchChat(@PathVariable String chatid, @RequestHeader("Session-Token") String token) {
         Chat chat = ChatService.getInstance().getOrCreateNewChat(chatid);
 
         return chat.toString();
     }
 
     @GetMapping(value = "/api/allChats", produces = "application/json")
-    public String allChats() {
+    public String allChats(@RequestHeader("Session-Token") String token) {
         List<Chat> chats = ChatService.getRepository().getAllChats();
         JSONObject json = new JSONObject();
         List<JSONObject> chatsJSON = new ArrayList<>();
