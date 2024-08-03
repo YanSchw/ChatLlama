@@ -25,4 +25,4 @@ function fetchAllChats() {
     });
 }
 
-fetchAllChats();
+//fetchAllChats();
