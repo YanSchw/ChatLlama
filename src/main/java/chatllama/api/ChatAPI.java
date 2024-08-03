@@ -3,8 +3,10 @@ package chatllama.api;
 import chatllama.config.Config;
 import chatllama.data.entity.Chat;
 import chatllama.data.entity.ChatMessage;
+import chatllama.data.entity.SessionToken;
 import chatllama.data.service.ChatMessageService;
 import chatllama.data.service.ChatService;
+import chatllama.data.service.SessionTokenService;
 import io.github.amithkoujalgi.ollama4j.core.OllamaAPI;
 import io.github.amithkoujalgi.ollama4j.core.OllamaStreamHandler;
 import io.github.amithkoujalgi.ollama4j.core.models.OllamaResult;
@@ -26,7 +28,14 @@ public class ChatAPI {
 
     @GetMapping(value = "/api/prompt/{chatid}", produces = "application/json")
     public String prompt(@PathVariable String chatid, @RequestHeader("prompt") String prompt, @RequestHeader("Session-Token") String token) {
-        Chat chat = ChatService.getInstance().getOrCreateNewChat(chatid);
+        SessionToken sessionToken = SessionTokenService.getInstance().getByToken(token);
+        if (sessionToken == null) {
+            return new JSONObject().toString();
+        }
+        Chat chat = ChatService.getInstance().getOrCreateNewChat(chatid, sessionToken.getUser());
+        if (!chat.getUserId().equals(sessionToken.getUserId())) {
+            return new JSONObject().toString();
+        }
 
         ChatMessage yourMessage = new ChatMessage(prompt);
         yourMessage.setModelMessage(false);
@@ -125,17 +134,32 @@ public class ChatAPI {
 
     @GetMapping(value = "/api/fetchChat/{chatid}", produces = "application/json")
     public String fetchChat(@PathVariable String chatid, @RequestHeader("Session-Token") String token) {
-        Chat chat = ChatService.getInstance().getOrCreateNewChat(chatid);
+        SessionToken sessionToken = SessionTokenService.getInstance().getByToken(token);
+        if (sessionToken == null) {
+            return new JSONObject().toString();
+        }
+        Chat chat = ChatService.getInstance().getOrCreateNewChat(chatid, sessionToken.getUser());
+
+        if (!chat.getUserId().equals(sessionToken.getUserId())) {
+            return new JSONObject().toString();
+        }
 
         return chat.toString();
     }
 
     @GetMapping(value = "/api/allChats", produces = "application/json")
     public String allChats(@RequestHeader("Session-Token") String token) {
+        SessionToken sessionToken = SessionTokenService.getInstance().getByToken(token);
+        if (sessionToken == null) {
+            return new JSONObject().toString();
+        }
         List<Chat> chats = ChatService.getRepository().getAllChats();
         JSONObject json = new JSONObject();
         List<JSONObject> chatsJSON = new ArrayList<>();
         for (Chat chat : chats) {
+            if (!chat.getUserId().equals(sessionToken.getUserId())) {
+                continue;
+            }
             JSONObject jsonChat = new JSONObject();
             jsonChat.put("chatid", chat.getId());
             jsonChat.put("title", chat.getTitle());
