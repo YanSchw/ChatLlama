@@ -30,4 +30,8 @@ public class UserService {
         List<User> list = getRepository().getUserById(userId);
         return list.isEmpty() ? null : list.get(0);
     }
+
+    public void deleteAccount(User user) {
+        getRepository().delete(user);
+    }
 }
