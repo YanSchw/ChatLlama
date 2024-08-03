@@ -38,4 +38,14 @@ public class Authorization {
         return json.toString();
     }
 
+    @GetMapping(value = "/auth/createGuestAccount", produces = "application/json")
+    public String createGuestAccount() {
+        User user = UserService.getInstance().createGuestAccount();
+        JSONObject json = new JSONObject();
+        SessionToken sessionToken = SessionToken.createTokenForUser(user);
+        json.put("sessionToken", sessionToken);
+
+        return json.toString();
+    }
+
 }

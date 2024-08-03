@@ -84,4 +84,9 @@ public class SessionToken {
 
         return sessionToken;
     }
+
+    @Override
+    public String toString() {
+        return getToken();
+    }
 }

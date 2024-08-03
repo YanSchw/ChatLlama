@@ -40,4 +40,12 @@ public class UserService {
         List<User> list = getRepository().getUserByNameAndPassword(username, PasswordHasher.hash(password));
         return list.isEmpty() ? null : list.get(0);
     }
+
+    public User createGuestAccount() {
+        User guestUser = new User();
+        guestUser.setGuestAccount(true);
+        getRepository().save(guestUser);
+
+        return guestUser;
+    }
 }
