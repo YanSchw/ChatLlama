@@ -2,6 +2,7 @@ package chatllama.components;
 
 import chatllama.data.entity.SessionToken;
 import chatllama.data.repository.SessionTokenRepository;
+import chatllama.data.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,9 +23,15 @@ public class ExpiredSessionTokenCleaner {
     public void cleanExpiredTokens() {
         LocalDateTime now = LocalDateTime.now();
         List<SessionToken> expiredTokens = sessionTokenRepository.findByExpirationTimestampBefore(now);
+        
+        for (SessionToken sessionToken : expiredTokens) {
+            if (sessionToken.getUser().isGuestAccount()) {
+                UserService.getInstance().deleteAccount(sessionToken.getUser());
+            }
+            sessionTokenRepository.delete(sessionToken);
+        }
 
         if (!expiredTokens.isEmpty()) {
-            sessionTokenRepository.deleteAll(expiredTokens);
             logger.info("Deleted " + expiredTokens.size() + " expired session tokens.");
         }
     }
