@@ -1,5 +1,6 @@
 package chatllama.data.entity;
 
+import chatllama.data.service.SessionTokenService;
 import chatllama.data.service.UserService;
 import jakarta.persistence.*;
 
@@ -73,5 +74,14 @@ public class SessionToken {
         String token = Base64.getUrlEncoder().withoutPadding().encodeToString(randomBytes);
 
         return token;
+    }
+
+    public static SessionToken createTokenForUser(User user) {
+        SessionToken sessionToken = new SessionToken();
+        sessionToken.setUser(user);
+        sessionToken.setToken(generateTokenString());
+        SessionTokenService.getRepository().save(sessionToken);
+
+        return sessionToken;
     }
 }

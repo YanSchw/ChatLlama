@@ -1,5 +1,6 @@
 package chatllama.data.service;
 
+import chatllama.common.PasswordHasher;
 import chatllama.data.entity.User;
 import chatllama.data.repository.UserRepository;
 import org.springframework.stereotype.Service;
@@ -33,5 +34,10 @@ public class UserService {
 
     public void deleteAccount(User user) {
         getRepository().delete(user);
+    }
+
+    public User getUserByNameAndPassword(String username, String password) {
+        List<User> list = getRepository().getUserByNameAndPassword(username, PasswordHasher.hash(password));
+        return list.isEmpty() ? null : list.get(0);
     }
 }

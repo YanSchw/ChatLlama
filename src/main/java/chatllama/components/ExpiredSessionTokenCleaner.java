@@ -24,7 +24,7 @@ public class ExpiredSessionTokenCleaner {
     public void cleanExpiredTokens() {
         LocalDateTime now = LocalDateTime.now();
         List<SessionToken> expiredTokens = sessionTokenRepository.findByExpirationTimestampBefore(now);
-        
+
         for (SessionToken sessionToken : expiredTokens) {
             if (sessionToken.getUser().isGuestAccount()) {
                 UserService.getInstance().deleteAccount(sessionToken.getUser());
