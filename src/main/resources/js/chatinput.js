@@ -5,7 +5,8 @@ function prompt(chatid, value) {
         method: 'GET',
         headers: {
             'Accept': 'application/json',
-            'prompt': `${value}`
+            'prompt': `${value}`,
+            'Session-Token': `${sessionToken}`
         }
     }).then(response => response.json())
       .then(json => {

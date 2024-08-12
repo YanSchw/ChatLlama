@@ -5,7 +5,8 @@ function fetchAllChats() {
     fetch(`/api/allChats`, {
         method: 'GET',
         headers: {
-            'Accept': 'application/json'
+            'Accept': 'application/json',
+            'Session-Token': `${sessionToken}`
         }
     }).then(response => response.json())
       .then(json => {
@@ -25,4 +26,4 @@ function fetchAllChats() {
     });
 }
 
-fetchAllChats();
+//fetchAllChats();

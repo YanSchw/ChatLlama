@@ -1,5 +1,6 @@
 package chatllama.data.entity;
 
+import chatllama.data.service.UserService;
 import jakarta.persistence.*;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
@@ -20,6 +21,8 @@ public class Chat {
     List<ChatMessage> messages;
 
     String title;
+
+    Long userId = null;
 
     public Chat() {
         messages = new ArrayList<>();
@@ -53,6 +56,22 @@ public class Chat {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+
+    public User getUser() {
+        return UserService.getInstance().getUserById(getUserId());
+    }
+
+    public void setUser(User user) {
+        this.userId = user.getId();
     }
 
     @Override
