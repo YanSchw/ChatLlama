@@ -33,7 +33,6 @@ public class ChatLlamaApplication {
             LoggerFactory.getLogger(ChatLlamaApplication.class).info("Model Llama3 ready.");
         } catch (Exception e) {
             LoggerFactory.getLogger(ChatLlamaApplication.class).error("Ollama server is unavailable!");
-            throw new RuntimeException();
         }
 
     }
