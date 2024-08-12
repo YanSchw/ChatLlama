@@ -12,16 +12,21 @@ function setCookie(name, value, days) {
 
 component('login', (node, state) => {
     createNode('div', node, div => {
-        div.addEventListener('click', function() {
-            fetch(`/auth/createGuestAccount`, {
-                method: 'GET',
-                headers: {
-                    'Accept': 'application/json'
-                }
-            }).then(response => response.json())
-              .then(json => {
-                setCookie('ChatLlama-Session-Token', json.sessionToken, 1);
-                location.reload();
+        createNode('guest-div', div, guest => {
+            createNode('p', guest, p => {
+                p.innerText = 'Continue as a Guest';
+            });
+            guest.addEventListener('click', function() {
+                fetch(`/auth/createGuestAccount`, {
+                    method: 'GET',
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                }).then(response => response.json())
+                  .then(json => {
+                    setCookie('ChatLlama-Session-Token', json.sessionToken, 1);
+                    location.reload();
+                });
             });
         });
     });
